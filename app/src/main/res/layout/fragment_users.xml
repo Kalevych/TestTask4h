@@ -28,6 +28,17 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:layout_marginBottom="49dp"
+            android:paddingBottom="60dp"
             tools:listitem="@layout/user_item" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="refresh from network"
+            android:onClick="@{() -> viewModel.refreshUsersFromNetwork()}"
+            android:id="@+id/btn_refresh_from_network"
+            android:layout_gravity="bottom" />
     </FrameLayout>
 </layout>

@@ -34,8 +34,7 @@ class UsersRepository(private val database: UsersDatabase) {
             val usersFromNetwork =
                 ButtonActionServiceImpl.usersServiceImpl.getUsers()
 
-
-            database.usersDao.insertAll(usersFromNetwork.results.asDatabaseModel())
+            database.usersDao.deleteAndInsertAll(usersFromNetwork.results.asDatabaseModel())
         }
     }
 

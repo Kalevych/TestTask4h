@@ -3,8 +3,8 @@ package com.afkoders.testtask25feb.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import retrofit2.Response
-import retrofit2.http.Path
+import java.nio.file.Files.delete
+
 
 /**
  * Created by Kalevych Oleksandr on 18.02.2021.
@@ -26,6 +26,17 @@ interface UsersDao {
 
     @Query("DELETE FROM usersDb WHERE $USER_ID_COLUMN_NAME = :id")
     fun deleteUser(id: String)
+
+    @Query("DELETE FROM usersDb")
+    @Transaction
+    fun deleteUsers()
+
+
+    @Transaction
+    fun deleteAndInsertAll(users: List<UserDbModel>) {
+        deleteUsers()
+        insertAll(users)
+    }
 }
 
 @Database(entities = [UserDbModel::class], version = 2)
