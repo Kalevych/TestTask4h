@@ -41,7 +41,7 @@ class UsersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.usersToDisplay.observe(viewLifecycleOwner, Observer<List<User>> { users ->
-            if(users.isNullOrEmpty()){
+            if (users.isNullOrEmpty()) {
                 viewModel.refreshUsersFromNetwork()
             }
             users?.apply {
@@ -60,13 +60,12 @@ class UsersListFragment : Fragment() {
             container,
             false
         )
-        // Set the lifecycleOwner so DataBinding can observe LiveData
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.viewModel = viewModel
 
-        viewModelAdapter = UsersAdapter(UserClick ({
-            // When a video is clicked this block or lambda will be called by DevByteAdapter
+        viewModelAdapter = UsersAdapter(UserClick({
             val bundle = Bundle()
             bundle.putString(USER_ID_EXTRA, it.id)
             findNavController().navigate(R.id.action_users_to_userDetails, bundle)
@@ -101,7 +100,7 @@ class UsersListFragment : Fragment() {
     }
 
 
-    companion object{
+    companion object {
         const val USER_ID_EXTRA = "USER_ID_EXTRA"
     }
 

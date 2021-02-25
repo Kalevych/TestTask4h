@@ -16,7 +16,6 @@ import com.afkoders.testtask25feb.R
 import com.afkoders.testtask25feb.databinding.FragmentEditUserBinding
 import com.afkoders.testtask25feb.viewmodel.EditUserViewModel
 import kotlinx.android.synthetic.main.fragment_edit_user.*
-import kotlinx.android.synthetic.main.fragment_edit_user.view.*
 
 /**
  * Created by Kalevych Oleksandr on 25.02.2021.
@@ -33,10 +32,6 @@ class EditUserFragment : Fragment() {
             .get(EditUserViewModel::class.java)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +42,8 @@ class EditUserFragment : Fragment() {
             container,
             false
         )
+
+        //could be avoided
         val btnUpdateUser = binding.root.findViewById<Button>(R.id.btn_update_user)
         val btnDeleteUser = binding.root.findViewById<Button>(R.id.btn_delete_user)
         val etFirstName = binding.root.findViewById<EditText>(R.id.et_first_name)
@@ -58,31 +55,36 @@ class EditUserFragment : Fragment() {
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         binding.viewModel = viewModel
+
         val userId = arguments?.getString(UsersListFragment.USER_ID_EXTRA) ?: ""
 
-        viewModel.getSpecificUser(userId)
+        viewModel.apply {
+            getSpecificUser(userId)
 
-        viewModel.userDeleted.observe(
-            viewLifecycleOwner,
-            Observer {
-                if(it) findNavController().popBackStack()
-            })
+            userDeleted.observe(
+                viewLifecycleOwner,
+                Observer {
+                    if (it) findNavController().popBackStack()
+                })
 
-        viewModel.userUpdated.observe(
-            viewLifecycleOwner,
-            Observer {
-                if(it) tv_update_successfull.visibility = View.VISIBLE
-            })
+            userUpdated.observe(
+                viewLifecycleOwner,
+                Observer {
+                    if (it) tv_update_successfull.visibility = View.VISIBLE
+                })
+        }
 
-            btnUpdateUser.setOnClickListener {
+        btnUpdateUser.setOnClickListener {
             viewModel.updateUser(
                 userId,
                 etFirstName.text.toString(),
                 etLastName.text.toString(),
                 etPhone.text.toString(),
                 etMail.text.toString(),
-                )
+            )
         }
+
+        //TODO: a lot of duplication could be avoided
 
         etFirstName.addTextChangedListener {
             tv_update_successfull.visibility = View.GONE
@@ -103,8 +105,6 @@ class EditUserFragment : Fragment() {
         btnDeleteUser.setOnClickListener {
             viewModel.deleteUser(userId)
         }
-        // viewModel.getSpecificUser(userId)
-
 
         return binding.root
     }

@@ -17,7 +17,6 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
 
     val fetchedUsers = usersRepository.fetchedUsers
 
-
     val usersToDisplay = Transformations.map(fetchedUsers) {
         _loading.value = false
         it
@@ -40,11 +39,6 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
     val loading: LiveData<Boolean>
         get() = _loading
 
-    init {
-        //TODO: add manual trigger
-     //   refreshUsersFromNetwork()
-    }
-
 
     fun refreshUsersFromNetwork() {
         viewModelScope.launch {
@@ -66,9 +60,6 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    /**
-     * Factory for constructing DevByteViewModel with parameter
-     */
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(UsersViewModel::class.java)) {

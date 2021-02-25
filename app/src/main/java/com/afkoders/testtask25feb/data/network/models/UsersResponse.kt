@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName
  * Created by Kalevych Oleksandr on 18.02.2021.
  */
 
+//TODO: delete all unnecessary fields
+
 data class UsersResponse(
     @SerializedName("info")
     val info: Info,

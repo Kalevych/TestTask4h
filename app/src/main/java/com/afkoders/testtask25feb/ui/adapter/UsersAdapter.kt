@@ -16,11 +16,8 @@ import com.afkoders.testtask25feb.domain.models.User
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
  */
-class UsersAdapter(val callback: UserClick) : RecyclerView.Adapter<UserViewHolder>() {
+class UsersAdapter(private val callback: UserClick) : RecyclerView.Adapter<UserViewHolder>() {
 
-    /**
-     * The videos that our Adapter will show
-     */
     var users: List<User> = emptyList()
         set(value) {
             field = value
@@ -32,17 +29,13 @@ class UsersAdapter(val callback: UserClick) : RecyclerView.Adapter<UserViewHolde
             LayoutInflater.from(parent.context),
             UserViewHolder.LAYOUT,
             parent,
-            false)
+            false
+        )
         return UserViewHolder(withDataBinding)
     }
 
     override fun getItemCount() = users.size
 
-    /**
-     * Called by RecyclerView to display the data at the specified position. This method should
-     * update the contents of the {@link ViewHolder#itemView} to reflect the item at the given
-     * position.
-     */
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.viewDataBinding.also {
             it.user = users[position]
@@ -52,9 +45,6 @@ class UsersAdapter(val callback: UserClick) : RecyclerView.Adapter<UserViewHolde
 
 }
 
-/**
- * ViewHolder for DevByte items. All work is done by data binding.
- */
 class UserViewHolder(val viewDataBinding: UserItemBinding) :
     RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {

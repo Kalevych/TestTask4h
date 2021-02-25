@@ -20,13 +20,13 @@ import kotlinx.coroutines.withContext
 
 class UsersRepository(private val database: UsersDatabase) {
 
-
     val fetchedUsers: LiveData<List<User>> =
         Transformations.map(database.usersDao.getUsers()) {
             it.filter { it.uuid.isNotBlank() }.asDomainModel()
         }
 
      val currentUser: MutableLiveData<User> = MutableLiveData<User>(EmptyUser)
+
 
     suspend fun refreshUsers() {
         withContext(Dispatchers.IO) {
@@ -40,7 +40,6 @@ class UsersRepository(private val database: UsersDatabase) {
 
    suspend fun checkSpecificUser(uuid: String) {
         withContext(Dispatchers.IO) {
-
             currentUser.postValue(
                 database.usersDao.getUser(uuid).asDomainModel()
             )

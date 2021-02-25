@@ -20,10 +20,6 @@ data class UserDbModel constructor(
     val phone: String
 )
 
-
-/**
- * Map DatabaseVideos to domain entities
- */
 fun List<UserDbModel>.asDomainModel(): List<User> {
     return map {
         User(

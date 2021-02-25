@@ -40,10 +40,12 @@ class EditUserViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    //TODO: half-crutches. Could be handled in better way
     val userDeleted = MutableLiveData<Boolean>(false)
     val userUpdated = MutableLiveData<Boolean>(false)
 
 
+    //TODO: duplication, this code smells a bit. Could be refactored
     val currentUser = usersRepository.currentUser
 
     val firstName = Transformations.map(currentUser) {
@@ -52,7 +54,6 @@ class EditUserViewModel(application: Application) : AndroidViewModel(application
     val lastName = Transformations.map(currentUser) {
         it?.lastName ?: ""
     }
-
     val phone = Transformations.map(currentUser) {
         it?.phone ?: ""
     }
@@ -60,9 +61,6 @@ class EditUserViewModel(application: Application) : AndroidViewModel(application
         it?.email ?: ""
     }
 
-    /**
-     * Factory for constructing DevByteViewModel with parameter
-     */
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(EditUserViewModel::class.java)) {

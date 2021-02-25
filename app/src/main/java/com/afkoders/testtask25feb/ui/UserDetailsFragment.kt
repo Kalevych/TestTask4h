@@ -47,7 +47,7 @@ class UsersDetailsFragment : Fragment() {
             container,
             false
         )
-        // Set the lifecycleOwner so DataBinding can observe LiveData
+
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         binding.viewModel = viewModel
@@ -65,26 +65,13 @@ class UsersDetailsFragment : Fragment() {
             viewModel.deleteUser(userId)
         }
 
+        //TODO: boolean flag is a crutch basically and could be refactored
+
         viewModel.userDeleted.observe(
             viewLifecycleOwner,
             Observer {
                 if(it) findNavController().popBackStack()
             })
-
-        /*binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = viewModelAdapter
-        }
-
-
-        // Observer for the network error.
-        viewModel.eventNetworkError.observe(
-            viewLifecycleOwner,
-            Observer<Boolean> { isNetworkError ->
-                if (isNetworkError) onNetworkError()
-            })
-
-         */
 
         return binding.root
     }

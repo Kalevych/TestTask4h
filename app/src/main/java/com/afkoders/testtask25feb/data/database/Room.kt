@@ -31,7 +31,6 @@ interface UsersDao {
     @Transaction
     fun deleteUsers()
 
-
     @Transaction
     fun deleteAndInsertAll(users: List<UserDbModel>) {
         deleteUsers()
