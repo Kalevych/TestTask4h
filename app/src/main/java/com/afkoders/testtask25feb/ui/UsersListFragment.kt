@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afkoders.testtask25feb.R
@@ -40,6 +41,9 @@ class UsersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.usersToDisplay.observe(viewLifecycleOwner, Observer<List<User>> { users ->
+            if(users.isNullOrEmpty()){
+                viewModel.refreshUsersFromNetwork()
+            }
             users?.apply {
                 viewModelAdapter?.users = users
             }
@@ -57,15 +61,18 @@ class UsersListFragment : Fragment() {
             false
         )
         // Set the lifecycleOwner so DataBinding can observe LiveData
-        binding.setLifecycleOwner(viewLifecycleOwner)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.viewModel = viewModel
 
-        viewModelAdapter = UsersAdapter(UserClick {
+        viewModelAdapter = UsersAdapter(UserClick ({
             // When a video is clicked this block or lambda will be called by DevByteAdapter
-
-            //TODO: CLICK CALLBACK
-        })
+            val bundle = Bundle()
+            bundle.putString(USER_ID_EXTRA, it.id)
+            findNavController().navigate(R.id.action_users_to_userDetails, bundle)
+        }, {
+            viewModel.deleteUser(it.id)
+        }))
 
         binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
@@ -91,6 +98,11 @@ class UsersListFragment : Fragment() {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
+    }
+
+
+    companion object{
+        const val USER_ID_EXTRA = "USER_ID_EXTRA"
     }
 
 }

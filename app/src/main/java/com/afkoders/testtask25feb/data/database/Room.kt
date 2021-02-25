@@ -3,6 +3,8 @@ package com.afkoders.testtask25feb.data.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import retrofit2.Response
+import retrofit2.http.Path
 
 /**
  * Created by Kalevych Oleksandr on 18.02.2021.
@@ -13,12 +15,20 @@ interface UsersDao {
     @Query("select * from usersDb")
     fun getUsers(): LiveData<List<UserDbModel>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(buttonActions: List<UserDbModel>)
+    @Query("SELECT * FROM usersDb WHERE $USER_ID_COLUMN_NAME = :id")
+    fun getUser(id: String): UserDbModel
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(users: List<UserDbModel>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(user: UserDbModel)
+
+    @Query("DELETE FROM usersDb WHERE $USER_ID_COLUMN_NAME = :id")
+    fun deleteUser(id: String)
 }
 
-@Database(entities = [UserDbModel::class], version = 1)
+@Database(entities = [UserDbModel::class], version = 2)
 abstract class UsersDatabase : RoomDatabase() {
     abstract val usersDao: UsersDao
 }

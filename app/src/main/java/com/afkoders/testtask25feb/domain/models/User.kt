@@ -1,5 +1,6 @@
 package com.afkoders.testtask25feb.domain.models
 
+import com.afkoders.testtask25feb.data.database.UserDbModel
 import java.util.*
 
 /**
@@ -14,3 +15,9 @@ data class User(
     val email: String,
     val phone: String
 )
+
+
+fun User.toDbModel() = UserDbModel(this.id, this.firstName, this.lastName, this.photoUrl, this.email, this.phone)
+
+
+val EmptyUser = User("", "", "", "", "", "")

@@ -41,12 +41,12 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
         get() = _loading
 
     init {
-        //TODO: remove when testing OK
-        refreshUsersFromNetwork()
+        //TODO: add manual trigger
+     //   refreshUsersFromNetwork()
     }
 
 
-    private fun refreshUsersFromNetwork() {
+    fun refreshUsersFromNetwork() {
         viewModelScope.launch {
             try {
                 _loading.value = true
@@ -57,6 +57,12 @@ class UsersViewModel(application: Application) : AndroidViewModel(application) {
                 _eventNetworkError.value = true
                 _loading.value = false
             }
+        }
+    }
+
+    fun deleteUser(userId: String) {
+        viewModelScope.launch {
+            usersRepository.deleteUser(userId)
         }
     }
 

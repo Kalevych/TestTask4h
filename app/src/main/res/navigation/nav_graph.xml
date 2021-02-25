@@ -8,5 +8,28 @@
         android:id="@+id/usersList"
         android:name="com.afkoders.testtask25feb.ui.UsersListFragment"
         android:label="fragment_users_list"
-        tools:layout="@layout/fragment_users" />
+        tools:layout="@layout/fragment_users" >
+    <action
+        android:id="@+id/action_users_to_userDetails"
+        app:destination="@id/userDetails" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userDetails"
+        android:name="com.afkoders.testtask25feb.ui.UsersDetailsFragment"
+        android:label="fragment_users_list"
+        tools:layout="@layout/fragment_user_details" >
+        <action
+            android:id="@+id/action_usersDetails_to_userEdit"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/userDetails"
+            app:popUpToInclusive="true"
+            app:destination="@id/editUser" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editUser"
+        android:name="com.afkoders.testtask25feb.ui.EditUserFragment"
+        android:label="fragment_users_list"
+        tools:layout="@layout/fragment_edit_user" />
 </navigation>

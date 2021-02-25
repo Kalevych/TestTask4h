@@ -1,5 +1,6 @@
 package com.afkoders.testtask25feb.data.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.afkoders.testtask25feb.domain.models.User
@@ -10,7 +11,7 @@ import com.afkoders.testtask25feb.domain.models.User
 
 @Entity(tableName = "UsersDb")
 data class UserDbModel constructor(
-    @PrimaryKey
+    @PrimaryKey @ColumnInfo(name = USER_ID_COLUMN_NAME)
     val uuid: String,
     val firstName: String,
     val lastName: String,
@@ -35,3 +36,16 @@ fun List<UserDbModel>.asDomainModel(): List<User> {
         )
     }
 }
+
+fun UserDbModel.asDomainModel(): User {
+    return User(
+            this.uuid,
+            this.firstName,
+            this.lastName,
+            this.photo,
+            this.email,
+            this.phone
+        )
+}
+
+const val USER_ID_COLUMN_NAME = "USER_ID_COLUMN_NAME"

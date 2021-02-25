@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TestTask25Feb</string>
+    <string name="edit_user">edit user</string>
+    <string name="update_user">Update user</string>
+    <string name="delete_user">Delete user</string>
+    <string name="update_is_successful">Update is successful</string>
 </resources>
