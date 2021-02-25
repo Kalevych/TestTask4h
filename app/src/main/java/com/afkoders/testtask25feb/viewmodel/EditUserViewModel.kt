@@ -20,7 +20,13 @@ class EditUserViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun updateUser(userId: String, firstName: String, lastName: String, phone: String, mail: String) {
+    fun updateUser(
+        userId: String,
+        firstName: String,
+        lastName: String,
+        phone: String,
+        mail: String
+    ) {
         viewModelScope.launch {
             usersRepository.updateUser(userId, firstName, lastName, phone, mail)
             userUpdated.postValue(true)
@@ -47,11 +53,11 @@ class EditUserViewModel(application: Application) : AndroidViewModel(application
         it?.lastName ?: ""
     }
 
-    val phone = Transformations.map(currentUser){
-        it?.phone?:""
+    val phone = Transformations.map(currentUser) {
+        it?.phone ?: ""
     }
-    val email = Transformations.map(currentUser){
-        it?.email?:""
+    val email = Transformations.map(currentUser) {
+        it?.email ?: ""
     }
 
     /**

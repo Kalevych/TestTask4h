@@ -54,9 +54,10 @@
             android:id="@+id/btn_update_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="@string/update_user"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_delete_user"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_mail_text" />
 
@@ -64,11 +65,12 @@
             android:id="@+id/btn_delete_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:text="@string/delete_user"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_update_user" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_update_user"
+            app:layout_constraintTop_toBottomOf="@id/btn_update_user"
+            app:layout_constraintTop_toTopOf="@+id/btn_update_user" />
 
         <TextView
             android:id="@+id/tv_update_successfull"
@@ -78,7 +80,6 @@
             android:textColor="@color/purple_500"
             android:textSize="22dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_delete_user" />
@@ -88,8 +89,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Phone"
             android:layout_marginTop="24dp"
+            android:text="Phone"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="@color/purple_200"

@@ -44,6 +44,15 @@ class UserDetailsViewModel(application: Application) : AndroidViewModel(applicat
         it?.email?:""
     }
 
+    fun deleteUser(userId: String) {
+        viewModelScope.launch {
+            usersRepository.deleteUser(userId)
+            userDeleted.postValue(true)
+        }
+    }
+
+    val userDeleted = MutableLiveData<Boolean>(false)
+
     /**
      * Factory for constructing DevByteViewModel with parameter
      */

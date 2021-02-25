@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.afkoders.testtask25feb.R
@@ -59,6 +60,17 @@ class UsersDetailsFragment : Fragment() {
             bundle.putString(USER_ID_EXTRA, userId)
             findNavController().navigate(R.id.action_usersDetails_to_userEdit, bundle)
         }
+
+        binding.root.findViewById<Button>(R.id.btn_delete_user).setOnClickListener{
+            viewModel.deleteUser(userId)
+        }
+
+        viewModel.userDeleted.observe(
+            viewLifecycleOwner,
+            Observer {
+                if(it) findNavController().popBackStack()
+            })
+
         /*binding.root.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = LinearLayoutManager(context)
             adapter = viewModelAdapter
