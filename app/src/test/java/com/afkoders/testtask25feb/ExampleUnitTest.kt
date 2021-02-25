@@ -1,4 +1,4 @@
-package com.afkoders.testtask15feb
+package com.afkoders.testtask25feb
 
 import org.junit.Test
 

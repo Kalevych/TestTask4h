@@ -1,4 +1,4 @@
-package com.afkoders.testtask15feb
+package com.afkoders.testtask25feb
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

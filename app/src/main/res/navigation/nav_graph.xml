@@ -1,0 +1,12 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/usersList">
+
+    <fragment
+        android:id="@+id/usersList"
+        android:name="com.afkoders.testtask25feb.ui.UsersListFragment"
+        android:label="fragment_users_list"
+        tools:layout="@layout/fragment_users" />
+</navigation>
